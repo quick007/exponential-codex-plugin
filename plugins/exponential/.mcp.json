@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "exponential": {
+      "type": "http",
+      "url": "https://exponential.seufert.sh/mcp",
+      "note": "Exponential MCP server. Uses OAuth on first connection and scopes access to selected Exponential workspaces."
+    }
+  }
+}

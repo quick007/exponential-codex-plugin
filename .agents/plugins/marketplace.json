@@ -1,0 +1,20 @@
+{
+  "name": "exponential",
+  "interface": {
+    "displayName": "Exponential"
+  },
+  "plugins": [
+    {
+      "name": "exponential",
+      "source": {
+        "source": "local",
+        "path": "./plugins/exponential"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "name": "exponential",
+  "version": "0.1.0",
+  "description": "Connect Codex to Exponential workspaces through MCP.",
+  "author": {
+    "name": "Exponential",
+    "url": "https://exponential.seufert.sh"
+  },
+  "homepage": "https://exponential.seufert.sh",
+  "repository": "https://github.com/quick007/exponential-codex-plugin",
+  "license": "MIT",
+  "keywords": ["codex", "mcp", "issues", "project-management", "exponential"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Exponential",
+    "shortDescription": "Manage Exponential issues and imports from Codex.",
+    "longDescription": "Use Codex with Exponential workspaces through a remote MCP connection. Create and update issues, projects, labels, statuses, views, and workspace settings, or migrate work from another MCP-connected platform into Exponential with a guided import workflow.",
+    "developerName": "Exponential",
+    "category": "Developer Tools",
+    "capabilities": ["MCP", "Workspace management", "Issue imports"],
+    "websiteURL": "https://exponential.seufert.sh",
+    "defaultPrompt": [
+      "Import issues into Exponential.",
+      "Create a project plan in Exponential.",
+      "Clean up my Exponential workspace."
+    ],
+    "brandColor": "#818CF8",
+    "composerIcon": "./assets/logo.png",
+    "logo": "./assets/logo.png",
+    "screenshots": ["./assets/screenshot1.png"]
+  },
+  "mcpServers": "./.mcp.json"
+}
