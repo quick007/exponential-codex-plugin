@@ -24,14 +24,15 @@ Use this skill when the user wants Codex to manage Exponential workspaces, creat
 2. Read source projects, issues, labels, statuses, assignees, comments, and relations.
 3. Read the Exponential workspace snapshot and map existing projects, statuses, labels, users, and issues.
 4. Create missing setup data first: labels, statuses, projects, milestones, and views.
-5. Create issues next. Let Exponential generate IDs, then record the returned issue IDs from successful `create_issue` results before creating relations or comments.
+5. Create issues next. Let Exponential generate IDs, then record the returned issue IDs from successful `create_issue` results before creating relations or comments. For source-platform imports, put provenance in the `source` object rather than in the visible description.
 6. Prefer setting `labelIds`, `assigneeUserIds`, `milestoneId`, `parentIssueId`, and `prerequisiteIssueIds` during `create_issue` when the target IDs are already known. Add comments and issue relations after all referenced issues exist.
 7. Re-read the Exponential workspace snapshot and report created, matched, skipped, and failed items.
 
 ## Mapping Guidance
 
 - Preserve source URLs only when the user wants visible provenance. Do not prepend import metadata to user-authored issue descriptions by default.
-- If the target Exponential schema has no first-class field for source metadata, report that limitation instead of stuffing metadata into visible descriptions.
+- Use issue `source` for first-class import metadata: `provider`, `id`, `number`, `url`, `repository`, `authorName`, `status`, `createdAt`, `updatedAt`, and `closedAt`.
+- Before importing, search for existing records with `sourceProvider` plus `sourceId`, `sourceNumber`, or `sourceUrl` so retries do not duplicate work.
 - Match existing Exponential entities by normalized name first, then by explicit IDs if the source already contains Exponential IDs.
 - Do not reuse source IDs as Exponential IDs. MCP create tools generate Exponential IDs server-side.
 - If an assignee cannot be mapped to a workspace member, leave the issue unassigned and mention it in the import summary.
