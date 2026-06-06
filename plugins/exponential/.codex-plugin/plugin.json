@@ -1,6 +1,6 @@
 {
   "name": "exponential",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Connect Codex to Exponential workspaces through MCP.",
   "author": {
     "name": "Exponential",
