@@ -17,6 +17,7 @@ Use this skill when the user wants Codex to manage Exponential workspaces, creat
 - If `whoami` returns `workspaceAccess.mode` as `all`, an empty `workspaceAccess.workspaceIds` list is normal. Use `list_workspaces` for the concrete current workspace list.
 - Keep write batches ordered. Exponential write tools accept either a single item or an `items` array; use up to 250 items for `create_issue` imports and up to 50 items for other write tools. Batch results can include both successes and failures, and Exponential stops processing after three consecutive failures.
 - Treat `ack.status` of `committed` as durable persistence. `syncBroadcast.status` of `sent` means connected app clients were notified; if broadcast fails, re-read before deciding what to do next.
+- `get_workspace_snapshot` can be large. Prefer `search_issues`, `get_issue`, `list_members`, and narrow filters when you only need a small slice.
 
 ## Import Workflow
 
@@ -44,4 +45,5 @@ Use this skill when the user wants Codex to manage Exponential workspaces, creat
 - `create_issue` can create one issue with top-level fields or multiple issues with `items`.
 - `update_issue`, `replace_issue_assignees`, `replace_issue_labels`, `add_comment`, and `create_issue_relation` also support `items`.
 - Settings and structure tools such as `create_project`, `create_project_milestone`, `create_status`, `create_label`, `create_view`, and role/member tools support the same single-or-`items` pattern.
+- Use cleanup tools after temporary or migration setup work: `delete_project_milestone`, `delete_project`, and `delete_role` are soft deletes. Delete or move active issues before `delete_project`; `delete_project_milestone` clears the milestone from active issues; `delete_role` cannot delete built-in/default roles and needs `reassignToRoleId` when active members still use the role.
 - Use `get_capabilities` when you need to confirm the current MCP surface.
