@@ -17,7 +17,7 @@ Use this skill when the user wants Codex to manage Exponential workspaces, creat
 - If `whoami` returns `workspaceAccess.mode` as `all`, an empty `workspaceAccess.workspaceIds` list is normal. Use `list_workspaces` for the concrete current workspace list.
 - Keep write batches ordered. Exponential write tools accept either a single item or an `items` array; use up to 250 items for `create_issue` imports and up to 50 items for other write tools. Batch results can include both successes and failures, and Exponential stops processing after three consecutive failures.
 - Treat `ack.status` of `committed` as durable persistence. `syncBroadcast.status` of `sent` means connected app clients were notified; if broadcast fails, re-read before deciding what to do next.
-- `get_workspace_snapshot` can be large. Prefer `search_issues`, `get_issue`, `list_members`, and narrow filters when you only need a small slice.
+- `get_workspace_snapshot` can be large. Use `countsOnly` for table counts or `tables` to request only selected sync tables. Prefer `search_issues`, `get_issue`, `list_members`, and narrow filters when you only need a small slice.
 
 ## Import Workflow
 
