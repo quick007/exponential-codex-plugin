@@ -16,7 +16,7 @@ Use this skill when the user wants Codex to manage Exponential workspaces, creat
 - For large migrations or destructive operations, summarize the planned changes before writing.
 - If `whoami` returns `workspaceAccess.mode` as `all`, an empty `workspaceAccess.workspaceIds` list is normal. Use `list_workspaces` for the concrete current workspace list.
 - Keep write batches ordered. Exponential write tools accept either a single item or an `items` array; use up to 250 items for `create_issue` imports and up to 50 items for other write tools. Batch results can include both successes and failures, and Exponential stops processing after three consecutive failures.
-- Treat `ack.status` of `committed` as durable persistence. `syncBroadcast.status` of `sent` means connected app clients were notified; if broadcast fails, re-read before deciding what to do next.
+- Treat `ack.status` of `committed` as durable persistence. Successful write items include `mutationSummary.primaryId`, `mutationSummary.primaryTable`, `mutationSummary.createdRecords`, and `mutationSummary.changedRecords`; use those IDs for follow-up comments, relations, and updates instead of guessing or generating IDs locally. `syncBroadcast.status` of `sent` means connected app clients were notified; if broadcast fails, re-read before deciding what to do next.
 - `get_workspace_snapshot` can be large. Use `countsOnly` for table counts or `tables` to request only selected sync tables. Prefer `search_issues`, `get_issue`, `list_members`, and narrow filters when you only need a small slice.
 
 ## Import Workflow
@@ -25,7 +25,7 @@ Use this skill when the user wants Codex to manage Exponential workspaces, creat
 2. Read source projects, issues, labels, statuses, assignees, comments, and relations.
 3. Read the Exponential workspace snapshot and map existing projects, statuses, labels, users, and issues.
 4. Create missing setup data first: labels, statuses, projects, milestones, and views.
-5. Create issues next. Let Exponential generate IDs, then record the returned issue IDs from successful `create_issue` results before creating relations or comments. For source-platform imports, put provenance in the `source` object rather than in the visible description.
+5. Create issues next. Let Exponential generate IDs, then record `mutationSummary.primaryId` from successful `create_issue` results before creating relations or comments. For source-platform imports, put provenance in the `source` object rather than in the visible description.
 6. Prefer setting `labelIds`, `assigneeUserIds`, `milestoneId`, `parentIssueId`, and `prerequisiteIssueIds` during `create_issue` when the target IDs are already known. Add comments and issue relations after all referenced issues exist.
 7. Re-read the Exponential workspace snapshot and report created, matched, skipped, and failed items.
 
