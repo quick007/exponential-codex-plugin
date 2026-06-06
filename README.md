@@ -7,10 +7,8 @@ This repository is a Codex plugin marketplace for Exponential.
 1. Open **Plugins** in the Codex app.
 2. Click **Built by OpenAI**, then **Add more**.
 3. Use `quick007/exponential-codex-plugin` as the source.
-4. Use `main` as the Git ref.
-5. Use `plugins/codex` as the sparse path.
-6. Install the **Exponential** plugin from the marketplace.
-7. Start a new Codex thread and invoke `@exponential`.
+4. Install the **Exponential** plugin from the marketplace.
+5. Start a new Codex thread and invoke `@exponential`.
 
 The plugin bundles:
 
